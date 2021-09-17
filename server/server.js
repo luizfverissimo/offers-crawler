@@ -6,21 +6,23 @@ require('dotenv').config();
 
 const app = express();
 
-const targetWord = ['SMART TV', 'SMARTPHONE'];
-let titlesScrapped = []
+const targetWord = ['IPAD'];
+let titlesScrapped = [];
 // const openNewTab = { button: 'middle' };
 
-const task = cron.schedule('30 * * * * *', async () => {
-  console.log('⏳ Cron Running...')
-  await getOffers()
-})
+// const task = cron.schedule('30 * * * * *', async () => {
+//   console.log('⏳ Cron Running...')
+//   await getOffers()
+// })
 
-task.start()
+// task.start()
 
 async function getOffers() {
   const offers = [];
 
   const browser = await puppeteer.launch();
+  const context = browser.defaultBrowserContext();
+  context.overridePermissions(process.env.TARGET_URL, ['clipboard-read']);
   const page = await browser.newPage();
   await page.goto(process.env.TARGET_URL);
 
@@ -31,13 +33,13 @@ async function getOffers() {
       const title = await card.$eval('.offer-title', (el) => el.textContent);
 
       if (targetWord.some((word) => title.toLocaleUpperCase().includes(word))) {
-        if (titlesScrapped.some(titleScrapped => titleScrapped === title)) {
-          res()
-          return
+        if (titlesScrapped.some((titleScrapped) => titleScrapped === title)) {
+          res();
+          return;
         }
 
         console.log('💸 Oferta encontrada!');
-        titlesScrapped.push(title)
+        titlesScrapped.push(title);
         const offerPrice = await card.$eval(
           '.offer-card-price',
           (el) => el.textContent
@@ -67,11 +69,30 @@ async function getOffers() {
           const linkButton = await card.$('.offer-go-to-store');
 
           await linkButton.click();
-          const code = await page.$eval('#cupon_code', (el) =>
-            el.getAttribute('value')
-          );
+          await page.waitForTimeout(1000);
+          const button = await page.$('#cupon-to-store');
+          await button.click();
+          await page.waitForTimeout(1000);
 
-          console.log(code);
+          const cupon = await page.evaluate(async () => await navigator.clipboard.readText())
+          console.log(cupon);
+          await page.waitForTimeout(2000);
+          
+          const [blankPage, mainPage, offerPage] = await browser.pages()
+
+          const link = offerPage.url()
+          const queryParams = new URLSearchParams(link);
+
+          const offer = {
+            title,
+            previousPrice,
+            offerPrice,
+            paymentFormat,
+            link,
+            queryParams,
+            cupon
+          };
+          offers.push(offer);
 
           res();
           return;
@@ -121,5 +142,7 @@ app.get('/', async (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log(`👂 Server App running... listening at http://localhost:${process.env.PORT}`);
+  console.log(
+    `👂 Server App running... listening at http://localhost:${process.env.PORT}`
+  );
 });
