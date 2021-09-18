@@ -1,12 +1,16 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
 const cron = require('node-cron');
+const axios = require('axios');
 
 require('dotenv').config();
 
 const app = express();
+const api = axios.create({
+  baseURL: process.env.TELEGRAM_BASE
+});
 
-const targetWord = ['IPAD'];
+const targetWord = ['smart tv'];
 let titlesScrapped = [];
 // const openNewTab = { button: 'middle' };
 
@@ -32,7 +36,11 @@ async function getOffers() {
     return new Promise(async (res, rej) => {
       const title = await card.$eval('.offer-title', (el) => el.textContent);
 
-      if (targetWord.some((word) => title.toLocaleUpperCase().includes(word))) {
+      if (
+        targetWord.some((word) =>
+          title.toLocaleUpperCase().includes(word.toLocaleUpperCase())
+        )
+      ) {
         if (titlesScrapped.some((titleScrapped) => titleScrapped === title)) {
           res();
           return;
@@ -74,13 +82,15 @@ async function getOffers() {
           await button.click();
           await page.waitForTimeout(1000);
 
-          const cupon = await page.evaluate(async () => await navigator.clipboard.readText())
+          const cupon = await page.evaluate(
+            async () => await navigator.clipboard.readText()
+          );
           console.log(cupon);
           await page.waitForTimeout(2000);
-          
-          const [blankPage, mainPage, offerPage] = await browser.pages()
 
-          const link = offerPage.url()
+          const [blankPage, mainPage, offerPage] = await browser.pages();
+
+          const link = offerPage.url();
           const queryParams = new URLSearchParams(link);
 
           const offer = {
@@ -128,13 +138,51 @@ async function getOffers() {
   console.log(offers);
 
   await browser.close();
+  return offers
 }
 
 app.get('/', async (req, res) => {
   console.log('📩 Request received!');
 
   try {
-    await getOffers();
+    const offers = await getOffers();
+    const telegramMessagePromise = offers.forEach(async (offer) => {
+
+      function createHtmlToMessage(offer) {
+        const html = `
+        <b>🤑 ${offer.title}</b>
+
+        <i><s>${offer.previousPrice}</s></i>
+        <b>${offer.offerPrice}</b>
+        ${offer.paymentFormat} ${offer.cupon ? `<b>CUPOM: ${offer.cupon}</b>` : ''}
+
+        <a href="${offer.link}"><b>➡️ Clique aqui para acessar a promoção!</b></a>
+        `
+        return html.toString()
+      }
+
+      return new Promise(async (res, rej) => {
+        try {
+          const htmlTextMessage = createHtmlToMessage(offer)
+          console.log(htmlTextMessage)
+
+          await api.post('/sendMessage', {
+            chat_id: '1140207293',
+            text: htmlTextMessage,
+            parse_mode: 'HTML'
+          });
+          console.log('🤖 Bot message was send!');
+          return res();
+        } catch (err) {
+          console.log('🤖 Bot message Error! ⛔️');
+          console.log(err);
+          return rej();
+        }
+      });
+    });
+
+    await Promise.all(telegramMessagePromise);
+
     res.send('Procedimento completo');
   } catch (err) {
     res.status(500).send(err);
