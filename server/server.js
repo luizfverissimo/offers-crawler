@@ -88,9 +88,10 @@ async function getOffers() {
           console.log(cupon);
           await page.waitForTimeout(2000);
 
-          const [blankPage, mainPage, offerPage] = await browser.pages();
+          const pages = await browser.pages();
 
-          const link = offerPage.url();
+          const lastIndex = pages.length - 1
+          const link = pages[lastIndex].url();
           const queryParams = new URLSearchParams(link);
 
           const offer = {
