@@ -10,7 +10,7 @@ function createHtmlToMessage(offer) {
 
 ${offer.coupon ? `<b>🎟 CUPOM: ${offer.coupon}</b>` : ''}
 
-<a href="${offer.link}"><b>➡️ Clique aqui para acessar a promoção!</b></a>
+<b>➡️ Acesse: ${offer.link}</b>
 `;
   return html.toString();
 }
@@ -36,7 +36,7 @@ async function sendTelegramMessage(offers) {
       }
     });
   });
-  
+
   return telegramMessagePromise
 }
 
