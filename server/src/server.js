@@ -2,6 +2,7 @@ const express = require('express');
 const cron = require('node-cron');
 
 require('dotenv').config();
+require('./services/firebase')
 
 const getOffers = require('./getOffers');
 const sendTelegramMessage = require('./sendTelegramMessage')
@@ -20,7 +21,6 @@ const targetWords = ['notebook'];
 app.get('/', async (req, res) => {
   console.log('📩 Request received!');
 
-  try {
     const offers = await getOffers(targetWords);
 
     if (offers.length === 0) {
@@ -32,9 +32,6 @@ app.get('/', async (req, res) => {
     await sendTelegramMessage(offers)
 
     res.send('Procedimento completo');
-  } catch (err) {
-    res.status(500).send(err);
-  }
 });
 
 app.listen(process.env.PORT, () => {

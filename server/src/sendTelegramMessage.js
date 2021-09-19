@@ -2,14 +2,16 @@ const api = require('./utils/api')
 
 function createHtmlToMessage(offer) {
   const html = `
-        <b>🤑 ${offer.title}</b>
+<b>🚨 ${offer.title}</b>
 
-        <i><s>${offer.previousPrice}</s></i>
-        <b>${offer.offerPrice}</b>
-        ${offer.paymentFormat} ${offer.cupon ? `<b>CUPOM: ${offer.cupon}</b>` : ''}
+    <i>❌ <s>${offer.previousPrice}</s></i>
+    <b>✅ ${offer.offerPrice}</b>
+    📋 ${offer.paymentFormat}
 
-        <a href="${offer.link}"><b>➡️ Clique aqui para acessar a promoção!</b></a>
-        `;
+${offer.coupon ? `<b>🎟 CUPOM: ${offer.coupon}</b>` : ''}
+
+<a href="${offer.link}"><b>➡️ Clique aqui para acessar a promoção!</b></a>
+`;
   return html.toString();
 }
 
@@ -19,9 +21,10 @@ async function sendTelegramMessage(offers) {
       try {
         const htmlTextMessage = createHtmlToMessage(offer);
 
-        await api.post('/sendMessage', {
+        await api.post('/sendPhoto', {
           chat_id: '1140207293',
-          text: htmlTextMessage,
+          photo: offer.imageLink,
+          caption: htmlTextMessage,
           parse_mode: 'HTML'
         });
         console.log('🤖 Bot message was send!');
@@ -33,8 +36,8 @@ async function sendTelegramMessage(offers) {
       }
     });
   });
-
-  await Promise.all(telegramMessagePromise);
+  
+  return telegramMessagePromise
 }
 
 module.exports = sendTelegramMessage
