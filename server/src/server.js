@@ -1,22 +1,17 @@
 const express = require('express');
-const cron = require('node-cron');
 
 require('dotenv').config();
 require('./services/firebase')
 
 const getOffers = require('./getOffers');
 const sendTelegramMessage = require('./sendTelegramMessage')
+const task = require('./cron/jobs')
 
 const app = express();
 
-// const task = cron.schedule('30 * * * * *', async () => {
-//   console.log('⏳ Cron Running...')
-//   await getOffers()
-// })
-
-// task.start()s
-
 const targetWords = ['notebook'];
+
+task.start()
 
 app.get('/', async (req, res) => {
   console.log('📩 Request received!');
