@@ -1,11 +1,15 @@
 const puppeteer = require('puppeteer');
 const { nanoid } = require('nanoid');
+const dayjs = require('dayjs')
+require('dayjs/locale/pt-br')
+
 const cleanLinkGenerator = require('./cleanLinkGenerator');
 const saveFirebase = require('./saveFirebase');
 const saveLastTitlesFirebase = require('./saveLastTitlesFirebase');
 const getLastTitles = require('./getLastTitles');
 
 let titlesScrapped = [];
+dayjs.locale('pt-br')
 // let lastTitlesScraped = [];
 
 async function getOffers(targetWords) {
@@ -70,6 +74,9 @@ async function getOffers(targetWords) {
             el.getAttribute('href')
           );
 
+          const date = dayjs().format('HH:mm - DD/MM/YYYY')
+          console.log(date)
+
           if (internalLink === 'javascript:undefined') {
             console.log('🎟 Oferta com cupom!');
             const linkButton = await card.$('.offer-go-to-store');
@@ -93,7 +100,6 @@ async function getOffers(targetWords) {
             const cleanLink = cleanLinkGenerator(dirtyLink);
 
             const id = nanoid(10);
-
             const offer = {
               id,
               title,
@@ -103,7 +109,8 @@ async function getOffers(targetWords) {
               imageLink,
               offerLink: cleanLink,
               link: `http://spider.promo/o/${id}`,
-              coupon
+              coupon,
+              date
             };
 
             await saveFirebase(offer);
@@ -132,7 +139,8 @@ async function getOffers(targetWords) {
             paymentFormat,
             imageLink,
             offerLink: cleanLink,
-            link: `http://spider.promo/o/${id}`
+            link: `http://spider.promo/o/${id}`,
+            date
           };
 
           await saveFirebase(offer);
