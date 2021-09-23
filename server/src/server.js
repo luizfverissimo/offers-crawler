@@ -5,7 +5,8 @@ require('./services/firebase')
 
 const getOffers = require('./getOffers');
 const sendTelegramMessage = require('./sendTelegramMessage')
-const task = require('./cron/jobs')
+const sendTelegramLogs = require('./sendTelegramLogs');
+const task = require('./cron/jobs');
 
 const app = express();
 
