@@ -5,7 +5,7 @@ const sendTelegramMessage = require('../sendTelegramMessage')
 
 const targetWords = ['iphone', 'macbook', 'mac mini', 'macmini', 'imac'];
 
-const task = cron.schedule('30 * * * * *', async () => {
+const task = cron.schedule('5 * * * *', async () => {
   console.log('⏳ Cron Running...')
   const offers = await getOffers(targetWords);
 
