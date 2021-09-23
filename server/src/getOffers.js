@@ -75,7 +75,6 @@ async function getOffers(targetWords) {
           );
 
           const date = dayjs().format('HH:mm - DD/MM/YYYY')
-          console.log(date)
 
           if (internalLink === 'javascript:undefined') {
             console.log('🎟 Oferta com cupom!');
@@ -108,7 +107,7 @@ async function getOffers(targetWords) {
               paymentFormat,
               imageLink,
               offerLink: cleanLink,
-              link: `http://spider.promo/o/${id}`,
+              link: `${process.env.PROMO_LINK_BASE}${id}`,
               coupon,
               date
             };
@@ -139,7 +138,7 @@ async function getOffers(targetWords) {
             paymentFormat,
             imageLink,
             offerLink: cleanLink,
-            link: `http://spider.promo/o/${id}`,
+            link: `${process.env.PROMO_LINK_BASE}${id}`,
             date
           };
 

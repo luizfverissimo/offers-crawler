@@ -1,12 +1,11 @@
-const admin = require('./services/firebase')
+const admin = require('./services/firebase');
 
 async function saveLastTitlesFirebase(titles) {
-  const db = admin.database()
-  const titlesRef = db.ref('lastTitles')
-  titlesRef.set(titles)
+  const db = admin.firestore();
+  const res = await db.collection('lastTitles').doc('lastTitles').set({ titles });
 
-  console.log('🔥 Titles saved in Firebase')
-  return
+  console.log('🔥 Titles saved in Firebase');
+  return;
 }
 
-module.exports = saveLastTitlesFirebase
+module.exports = saveLastTitlesFirebase;

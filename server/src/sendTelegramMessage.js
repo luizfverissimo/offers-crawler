@@ -22,7 +22,7 @@ async function sendTelegramMessage(offers) {
         const htmlTextMessage = createHtmlToMessage(offer);
 
         await api.post('/sendPhoto', {
-          chat_id: '1140207293',
+          chat_id: process.env.TELEGRAM_CHAT_ID,
           photo: offer.imageLink,
           caption: htmlTextMessage,
           parse_mode: 'HTML'

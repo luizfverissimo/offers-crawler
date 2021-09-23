@@ -1,27 +1,14 @@
 const admin = require('./services/firebase');
 
 async function getLastTitles() {
-  return new Promise ((res, rej) => {
-    const db = admin.database();
-    const titlesRef = db.ref('lastTitles');
-    titlesRef.on(
-      'value',
-      async (snapshot) => {
-        console.log('🔥 Last titles retrieved.');
+  const db = admin.firestore();
+  const snapshot = await db.collection('lastTitles').doc('lastTitles').get();
 
-        const data = await snapshot.val();
+  if (!snapshot.exists) return [];
 
-        if(data !== null) {
-          res(data) 
-        }
-        res([])
-      },
-      (err) => {
-        console.log(err);
-        res()
-      }
-    );
-  })
+  const { titles } = snapshot.data();
+
+  return titles;
 }
 
 module.exports = getLastTitles;

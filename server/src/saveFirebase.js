@@ -1,9 +1,8 @@
 const admin = require('./services/firebase')
 
 async function saveFirebase(offer) {
-  const db = admin.database()
-  const offersRef = db.ref('offers/' + offer.id)
-  offersRef.set(offer)
+  const db = admin.firestore()
+  const res = await db.collection('offers').doc(offer.id).set(offer)
 
   console.log('🔥 Offers saved in Firebase')
   return

@@ -3,7 +3,7 @@ const cron = require('node-cron');
 const getOffers = require('../getOffers');
 const sendTelegramMessage = require('../sendTelegramMessage')
 
-const targetWords = ['notebook'];
+const targetWords = ['iphone', 'macbook', 'mac mini', 'macmini', 'imac'];
 
 const task = cron.schedule('30 * * * * *', async () => {
   console.log('⏳ Cron Running...')

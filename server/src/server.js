@@ -9,7 +9,7 @@ const task = require('./cron/jobs')
 
 const app = express();
 
-const targetWords = ['notebook'];
+const targetWords = ['iphone', 'macbook', 'mac mini', 'macmini', 'imac'];
 
 task.start()
 
