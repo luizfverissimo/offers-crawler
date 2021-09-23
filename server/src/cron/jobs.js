@@ -7,6 +7,7 @@ const targetWords = ['iphone', 'macbook', 'mac mini', 'macmini', 'imac'];
 
 const task = cron.schedule('5 * * * *', async () => {
   console.log('⏳ Cron Running...')
+  await sendTelegramLogs('⏳ Cron Running...')
   const offers = await getOffers(targetWords);
 
   if (offers.length === 0) {

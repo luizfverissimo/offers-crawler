@@ -19,6 +19,7 @@ app.get('/', async (req, res) => {
     const offers = await getOffers(targetWords);
 
     if (offers.length === 0) {
+      await sendTelegramLogs('😭 Sem ofertas - tente novamente!')
       console.log('😭 Sem ofertas - tente novamente!');
       res.send('Procedimento completo');
       return;

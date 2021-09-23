@@ -7,6 +7,7 @@ const cleanLinkGenerator = require('./cleanLinkGenerator');
 const saveFirebase = require('./saveFirebase');
 const saveLastTitlesFirebase = require('./saveLastTitlesFirebase');
 const getLastTitles = require('./getLastTitles');
+const sendTelegramLogs = require('./sendTelegramLogs');
 
 let titlesScrapped = [];
 dayjs.locale('pt-br')
@@ -159,6 +160,8 @@ async function getOffers(targetWords) {
   if(titlesScrapped.length > 0) {
     await saveLastTitlesFirebase(titlesScrapped);
   }
+
+  await sendTelegramLogs(offers)
 
   console.log(offers);
   await browser.close();
