@@ -1,0 +1,30 @@
+{
+  "macOfertas": {
+    "chatId": "-1001532177974",
+    "firebaseCollection": "macoffer",
+    "linkPath": "mo",
+    "lastTitlesDoc": "lastTitlesMacOferta",
+    "targetWords": [
+      "iphone",
+      "macbook",
+      "mac mini",
+      "macmini",
+      "imac",
+      "apple tv"
+    ]
+  },
+  "promoTools": {
+    "chatId": "-1001598632537",
+    "firebaseCollection": "promotools",
+    "linkPath": "pt",
+    "lastTitlesDoc": "lastTitlesPromoTools",
+    "targetWords": [
+      "parafusadeira",
+      "furadeira",
+      "ferramentas",
+      "martelo",
+      "brocas",
+      "chaves"
+    ]
+  }
+}

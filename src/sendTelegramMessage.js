@@ -15,14 +15,14 @@ ${offer.coupon ? `<b>🎟 CUPOM: ${offer.coupon}</b>` : ''}
   return html.toString();
 }
 
-async function sendTelegramMessage(offers) {
+async function sendTelegramMessage(offers, chatId) {
   const telegramMessagePromise = offers.forEach(async (offer) => {
     return new Promise(async (res, rej) => {
       try {
         const htmlTextMessage = createHtmlToMessage(offer);
 
         await api.post('/sendPhoto', {
-          chat_id: process.env.TELEGRAM_CHAT_ID,
+          chat_id: chatId,
           photo: offer.imageLink,
           caption: htmlTextMessage,
           parse_mode: 'HTML'
