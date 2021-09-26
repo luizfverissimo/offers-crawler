@@ -6,7 +6,7 @@ function createHtmlToMessage(offer) {
 
     ${offer.previousPrice ? `<i>❌ <s>${offer.previousPrice}</s></i>` : ""}
     <b>✅ ${offer.offerPrice}</b>
-    📋 ${offer.paymentFormat}
+    ${offer.paymentFormat ? `📋 ${offer.paymentFormat}` : ''}
 
 ${offer.coupon ? `<b>🎟 CUPOM: ${offer.coupon}</b>` : ''}
 

@@ -28,7 +28,7 @@ async function getOffers(channel) {
 
   const cardsPromises = cards.map(async (card, index) => {
     return new Promise(async (res, rej) => {
-      // try {
+      try {
       const title = await card.$eval('.offer-title', (el) => el.textContent);
       if (
         targetWords.some((word) =>
@@ -79,9 +79,14 @@ async function getOffers(channel) {
         if (internalLink === 'javascript:undefined') {
           console.log('🎟 Oferta com cupom!');
           const linkButton = await card.$('.offer-go-to-store');
-          await page.waitForTimeout(1000);
-          await linkButton.click();
-          await page.waitForTimeout(1000);
+          await page.waitForTimeout(2000);
+          try {
+            await linkButton.click();
+          } catch(err) {
+            console.log(err)
+            res()
+          }
+          await page.waitForTimeout(2000);
           const button = await page.$('#cupon-to-store');
           await button.click();
           await page.waitForTimeout(1000);
@@ -140,10 +145,10 @@ async function getOffers(channel) {
       }
 
       res();
-      // } catch (err) {
-      //   console.log(err);
-      //   rej();
-      // }
+      } catch (err) {
+        console.log(err);
+        rej();
+      }
     });
   });
 
