@@ -7,7 +7,7 @@ const sendTelegramMessage = require('../sendTelegramMessage');
 const channelGroups = require('../../channelGroups.json');
 
 
-const { macOfertas, promoTools } = channelGroups;
+const { macOfertas, promoTools, gamerOffers } = channelGroups;
 
 const task = cron.schedule('*/15 * * * *', async () => {
   console.log('⏳ Cron Running...');
@@ -17,6 +17,8 @@ const task = cron.schedule('*/15 * * * *', async () => {
   await processOffers(macOfertas)
   //PromoTools
   await processOffers(promoTools)
+  //gamerOffers
+  await processOffers(gamerOffers)
 
 });
 

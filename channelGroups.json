@@ -10,7 +10,9 @@
       "mac mini",
       "macmini",
       "imac",
-      "apple tv"
+      "apple tv",
+      "apple watch",
+      "ipad"
     ]
   },
   "promoTools": {
@@ -25,6 +27,36 @@
       "martelo",
       "brocas",
       "chaves"
+    ]
+  },
+  "gamerOffers": {
+    "chatId": "-1001514407950",
+    "firebaseCollection": "gameroffers",
+    "linkPath": "go",
+    "lastTitlesDoc": "lastTitlesGamerOffers",
+    "targetWords": [
+      "teclado",
+      "mouse",
+      "monitor",
+      "gamer",
+      "console",
+      "playstation",
+      "xbox",
+      "smart tv",
+      "jogo",
+      "switch",
+      "cadeira",
+      "ps4",
+      "ps5",
+      "gamming",
+      "headset",
+      "gabinete",
+      "placa de video",
+      "placa mãe",
+      "processador",
+      "hd",
+      "ssd",
+      "memória"
     ]
   }
 }

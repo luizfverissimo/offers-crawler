@@ -4,7 +4,7 @@ function createHtmlToMessage(offer) {
   const html = `
 <b>🚨 ${offer.title}</b>
 
-    <i>❌ <s>${offer.previousPrice}</s></i>
+    ${offer.previousPrice ? `<i>❌ <s>${offer.previousPrice}</s></i>` : ""}
     <b>✅ ${offer.offerPrice}</b>
     📋 ${offer.paymentFormat}
 

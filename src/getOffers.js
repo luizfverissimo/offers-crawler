@@ -153,8 +153,8 @@ async function getOffers(channel) {
     await saveLastTitlesFirebase(titlesScrapped, lastTitlesDoc);
   }
 
-  await sendTelegramLogs(offers);
-  console.log(offers);
+  await sendTelegramLogs(channel.firebaseCollection + ': ' + titlesScrapped);
+  console.log(channel.firebaseCollection + ': ' + offers.toString());
   await browser.close();
   return offers;
 }
