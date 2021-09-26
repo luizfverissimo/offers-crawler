@@ -22,7 +22,12 @@ async function getOffers(channel) {
   context.overridePermissions(process.env.TARGET_URL, ['clipboard-read']);
 
   const page = await browser.newPage();
-  await page.goto(process.env.TARGET_URL);
+  try {
+    await page.goto(process.env.TARGET_URL);
+  }catch(err) {
+    console.log(err)
+    return
+  }
 
   const cards = await page.$$('.card-col');
 

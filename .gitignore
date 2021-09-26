@@ -6,6 +6,8 @@ yarn-debug.log*
 yarn-error.log*
 *.env
 node_modules
+env-file/
+daemon/
 
 # Runtime data
 pids
