@@ -9,7 +9,7 @@ const channelGroups = require('../../channelGroups.json');
 
 const { macOfertas, promoTools, gamerOffers } = channelGroups;
 
-const task = cron.schedule('*/15 * * * *', async () => {
+const task = cron.schedule('*/10 * * * *', async () => {
   console.log('⏳ Cron Running...');
   sendTelegramLogs('⏳ Cron Running...');
   
