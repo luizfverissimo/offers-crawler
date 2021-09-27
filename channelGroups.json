@@ -1,4 +1,15 @@
 {
+  "test": {
+    "chatId": "1140207293",
+    "firebaseCollection": "teste",
+    "linkPath": "teste",
+    "lastTitlesDoc": "testeTitles",
+    "targetWords": [
+      "presidente"
+    ],
+    "excludeWords": [
+    ]
+  },
   "macOfertas": {
     "chatId": "-1001532177974",
     "firebaseCollection": "macoffer",
@@ -13,7 +24,8 @@
       "apple tv",
       "apple watch",
       "ipad"
-    ]
+    ],
+    "excludeWords": []
   },
   "promoTools": {
     "chatId": "-1001598632537",
@@ -27,7 +39,8 @@
       "martelo",
       "brocas",
       "chaves"
-    ]
+    ],
+    "excludeWords": []
   },
   "gamerOffers": {
     "chatId": "-1001514407950",
@@ -51,12 +64,24 @@
       "gamming",
       "headset",
       "gabinete",
-      "placa de video",
+      "placa de vídeo",
+      "amd",
+      "geforce",
       "placa mãe",
       "processador",
       "hd",
       "ssd",
       "memória"
+    ],
+    "excludeWords": [
+      "copo",
+      "faca",
+      "prato",
+      "xícara",
+      "cama",
+      "talher",
+      "toalha",
+      "pijama"
     ]
   }
 }

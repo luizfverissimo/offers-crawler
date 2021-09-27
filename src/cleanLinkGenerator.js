@@ -24,7 +24,33 @@ function cleanLinkGenerator(dirtyLink) {
     return cleanLink
   }
 
+  if(url.includes('submarino')) {
+    const encodeLinkUrl = encodeURI(url)
+    const cleanLink = `https://www.awin1.com/cread.php?awinmid=22195&awinaffid=950549&ued=${encodeLinkUrl}`
+    console.log("🔗 Submarino link cleaned!")
+    return cleanLink
+  }
+
+  if(url.includes('americanas')) {
+    const encodeLinkUrl = encodeURI(url)
+    const cleanLink = `https://www.awin1.com/cread.php?awinmid=22193&awinaffid=950549&ued=${encodeLinkUrl}`
+    console.log("🔗 Americanas link cleaned!")
+    return cleanLink
+  }
+
+  if(url.includes('shoptime')) {
+    const encodeLinkUrl = encodeURI(url)
+    const cleanLink = `https://www.awin1.com/cread.php?awinmid=22194&awinaffid=950549&ued=${encodeLinkUrl}`
+    console.log("🔗 Shoptime link cleaned!")
+    return cleanLink
+  }
   
+  if(url.includes('soubarato')) {
+    const encodeLinkUrl = encodeURI(url)
+    const cleanLink = `https://www.awin1.com/cread.php?awinmid=23281&awinaffid=950549&ued=${encodeLinkUrl}`
+    console.log("🔗 Sou Barato link cleaned!")
+    return cleanLink
+  }
 
   console.log('🚯 The link wasn`t clean.')
   return dirtyLink
