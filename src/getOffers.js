@@ -9,10 +9,8 @@ const getLastTitles = require('./getLastTitles');
 const sendTelegramLogs = require('./sendTelegramLogs');
 const changeTitle = require('./utils/changeTitle');
 
-let titlesScrapped = [];
-// let lastTitlesScraped = [];
-
 async function getOffers(channel) {
+  let titlesScrapped = [];
   const {
     targetWords,
     lastTitlesDoc,
@@ -173,7 +171,7 @@ async function getOffers(channel) {
   }
 
   await sendTelegramLogs(channel.firebaseCollection + ': ' + titlesScrapped);
-  console.log(channel.firebaseCollection + ': ' + offers.toString());
+  console.log(channel.firebaseCollection, offers);
   await browser.close();
   return offers;
 }

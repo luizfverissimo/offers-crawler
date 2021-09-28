@@ -22,7 +22,7 @@ app.get('/', async (req, res) => {
   //macOfertas
   await processOffers(macOfertas);
   // //PromoTools
-  await processOffers(promoTools);
+  // await processOffers(promoTools);
   // gamerOffers
   await processOffers(gamerOffers);
   // //test
