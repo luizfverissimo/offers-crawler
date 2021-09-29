@@ -10,7 +10,7 @@ async function saveLastTitlesFirebase(titlesScrapped, lastTitlesDoc) {
   const res = await db
     .collection('lastTitles')
     .doc(lastTitlesDoc)
-    .set({ titles: newTitle });
+    .set({ titles: newTitle, ti });
 
   console.log('🔥 Titles saved in Firebase');
   return;
