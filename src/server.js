@@ -18,7 +18,7 @@ const app = express();
 task.start();
 cleaner.start();
 
-const { macOfertas, promoTools, gamerOffers, test } = channelGroups;
+const { macOfertas, smartPhoneOffers, gamerOffers, test } = channelGroups;
 
 app.get('/', async (req, res) => {
   console.log('📩 Request received!');
@@ -26,7 +26,7 @@ app.get('/', async (req, res) => {
   //macOfertas
   await processOffers(macOfertas);
   // //PromoTools
-  await processOffers(promoTools);
+  await processOffers(smartPhoneOffers);
   // gamerOffers
   await processOffers(gamerOffers);
   // //test

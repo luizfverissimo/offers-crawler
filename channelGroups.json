@@ -27,7 +27,7 @@
     ],
     "excludeWords": []
   },
-  "promoTools": {
+  "smartPhoneOffers": {
     "chatId": "-1001477979929",
     "firebaseCollection": "smartphoneoffers",
     "linkPath": "sp",
