@@ -16,7 +16,7 @@ const task = cron.schedule('*/10 * * * *', async () => {
   //macOfertas
   await processOffers(macOfertas)
   //PromoTools
-  // await processOffers(promoTools)
+  await processOffers(promoTools)
   //gamerOffers
   await processOffers(gamerOffers)
 
