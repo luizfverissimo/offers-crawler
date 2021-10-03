@@ -4,18 +4,20 @@ const sendTelegramLogs = require('../sendTelegramLogs');
 
 const channelGroups = require('../../channelGroups.json');
 
-const { macOfertas, gamerOffers } = channelGroups;
+const { macOfertas, gamerOffers, smartPhoneOffers } = channelGroups;
 
 //0 4 * * * todo dia as 4h - executa essa tarefa
 
-const cleaner = cron.schedule('0 4 * * *', async () => {
+const cleaner = cron.schedule('0 9 * * *', async () => {
   console.log('🧹 Cron Running cleanTitles...');
   await sendTelegramLogs('🧹 Cron Running cleanTitles...');
 
   await cleanTitles(macOfertas.lastTitlesDoc)
   await cleanTitles(gamerOffers.lastTitlesDoc)
+  await cleanTitles(smartPhoneOffers.lastTitlesDoc)
   return
 });
+
 
 async function cleanTitles(lastTitlesDoc) {
   const db = admin.firestore();
@@ -24,7 +26,6 @@ async function cleanTitles(lastTitlesDoc) {
   const { titles } = snapshot.data();
 
   const cleanedTitles = titles.slice(Math.floor((titles.length - 1)/2),  titles.length)
-  await sendTelegramLogs(lastTitlesDoc + ': cleanTitles -' + cleanedTitles)
 
   await db.collection('lastTitles').doc(lastTitlesDoc).set({titles: cleanedTitles})
   return

@@ -5,11 +5,11 @@ require('./services/firebase');
 
 const task = require('./cron/jobs');
 const cleaner = require('./cron/cleanTitles');
+// const cleanerRequest = require('./cron/cleanTitles');
 
 const getOffers = require('./getOffers');
 const sendTelegramMessage = require('./sendTelegramMessage');
 const sendTelegramLogs = require('./sendTelegramLogs');
-const cleaningTitles = require('./cron/cleanTitles');
 
 const channelGroups = require('../channelGroups.json');
 
@@ -54,7 +54,7 @@ async function processOffers(channel) {
 }
 
 app.get('/test', async (req, res) => {
-  await cleaningTitles(gamerOffers.lastTitlesDoc);
+  // await cleanerRequest();
   res.send('limpou!');
   return;
 });
