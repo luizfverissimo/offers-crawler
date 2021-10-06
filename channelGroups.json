@@ -78,10 +78,12 @@
       "toalha",
       "pijama",
       "smartphone",
-      "microprocessador",
+      "multiprocessador",
       "alimentos",
       "bebê",
-      "carro"
+      "carro",
+      "refeição",
+      "cozinha"
     ]
   }
 }
