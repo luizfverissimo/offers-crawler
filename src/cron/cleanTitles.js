@@ -8,7 +8,7 @@ const { macOfertas, gamerOffers, smartPhoneOffers } = channelGroups;
 
 //0 4 * * * todo dia as 4h - executa essa tarefa
 
-const cleaner = cron.schedule('0 9 * * *', async () => {
+const cleaner = cron.schedule('0 12 * * *', async () => {
   console.log('🧹 Cron Running cleanTitles...');
   await sendTelegramLogs('🧹 Cron Running cleanTitles...');
 
