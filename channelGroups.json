@@ -54,6 +54,7 @@
       "smart tv",
       "switch",
       "cadeira",
+      "cadeira gamer",
       "ps4",
       "ps5",
       "gamming",
@@ -67,7 +68,8 @@
       "processador",
       "hd",
       "ssd",
-      "memória"
+      "memória",
+      "webcam"
     ],
     "excludeWords": [
       "copo",
@@ -84,7 +86,12 @@
       "bebê",
       "carro",
       "refeição",
-      "cozinha"
+      "cozinha",
+      "refeição",
+      "criança",
+      "jantar",
+      "camera",
+      "câmera"
     ]
   }
 }
