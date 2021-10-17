@@ -9,9 +9,10 @@ const getLastTitles = require('./getLastTitles');
 const sendTelegramLogs = require('./sendTelegramLogs');
 const changeTitle = require('./utils/changeTitle');
 
-
 async function getOffers(channel) {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: ['--incognito']
+  });
 
   try {
     let titlesScrapped = [];
@@ -182,6 +183,9 @@ async function getOffers(channel) {
 
     await sendTelegramLogs(channel.firebaseCollection + ': ' + titlesScrapped);
     console.log(channel.firebaseCollection, offers);
+
+    let pages = await browser.pages();
+    await Promise.all(pages.map((page) => page.close()));
 
     return offers;
   } catch (err) {
